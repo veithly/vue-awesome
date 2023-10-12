@@ -1,7 +1,9 @@
-<script>
+<script lang="jsx">
+import * as Vue from 'vue'
+import { $children } from '../utils/gogocodeTransfer'
 let icons = {}
 
-function warn (msg, vm) {
+function warn(msg, vm) {
   if (!vm) {
     /* eslint-disable no-console */
     console.error(msg)
@@ -16,7 +18,7 @@ export default {
   props: {
     name: {
       type: String,
-      validator (val) {
+      validator(val) {
         if (val && !(val in icons)) {
           warn(
             `Invalid prop: prop "name" is referring to an unregistered icon "${val}".\n` +
@@ -26,7 +28,7 @@ export default {
           return false
         }
         return true
-      }
+      },
     },
     title: String,
     scale: [Number, String],
@@ -34,24 +36,28 @@ export default {
     inverse: Boolean,
     pulse: Boolean,
     flip: {
-      validator (val) {
+      validator(val) {
         return val === 'horizontal' || val === 'vertical' || val === 'both'
-      }
+      },
     },
     label: String,
-    tabindex: [Number, String]
+    tabindex: [Number, String],
   },
-  data () {
+  data() {
     return {
       x: false,
       y: false,
       childrenWidth: 0,
       childrenHeight: 0,
-      outerScale: 1
+      outerScale: 1,
+      classes: {},
     }
   },
   computed: {
-    normalizedScale () {
+    $listeners() {
+      return this.$attrs
+    },
+    normalizedScale() {
       let scale = this.scale
       scale = typeof scale === 'undefined' ? 1 : Number(scale)
       if (isNaN(scale) || scale <= 0) {
@@ -60,7 +66,7 @@ export default {
       }
       return scale * this.outerScale
     },
-    klass () {
+    klass() {
       let classes = {
         'fa-icon': true,
         'fa-spin': this.spin,
@@ -68,11 +74,11 @@ export default {
         'fa-flip-vertical': this.flip === 'vertical',
         'fa-flip-both': this.flip === 'both',
         'fa-inverse': this.inverse,
-        'fa-pulse': this.pulse
+        'fa-pulse': this.pulse,
       }
 
       if (this.classes) {
-        Object.keys(this.classes).forEach(c => {
+        Object.keys(this.classes).forEach((c) => {
           if (this.classes[c]) {
             classes[c] = true
           }
@@ -81,48 +87,48 @@ export default {
 
       return classes
     },
-    icon () {
+    icon() {
       if (this.name) {
         return icons[this.name]
       }
       return null
     },
-    box () {
+    box() {
       if (this.icon) {
         return `0 0 ${this.icon.width} ${this.icon.height}`
       }
       return `0 0 ${this.width} ${this.height}`
     },
-    ratio () {
+    ratio() {
       if (!this.icon) {
         return 1
       }
       let { width, height } = this.icon
       return Math.max(width, height) / 16
     },
-    width () {
+    width() {
       return (
         this.childrenWidth ||
         (this.icon && (this.icon.width / this.ratio) * this.normalizedScale) ||
         0
       )
     },
-    height () {
+    height() {
       return (
         this.childrenHeight ||
         (this.icon && (this.icon.height / this.ratio) * this.normalizedScale) ||
         0
       )
     },
-    style () {
+    style() {
       if (this.normalizedScale === 1) {
         return false
       }
       return {
-        fontSize: this.normalizedScale + 'em'
+        fontSize: this.normalizedScale + 'em',
       }
     },
-    raw () {
+    raw() {
       // generate unique id for each icon's SVG element with ID
       if (!this.icon || !this.icon.raw) {
         return null
@@ -151,7 +157,7 @@ export default {
 
       return raw
     },
-    focusable () {
+    focusable() {
       let { tabindex } = this
       if (tabindex == null) {
         return 'false'
@@ -162,17 +168,17 @@ export default {
         return null
       }
       return 'false'
-    }
+    },
   },
-  mounted () {
+  mounted() {
     this.updateStack()
   },
-  updated () {
+  updated() {
     this.updateStack()
   },
   methods: {
-    updateStack () {
-      if (!this.name && this.name !== null && this.$children.length === 0) {
+    updateStack() {
+      if (!this.name && this.name !== null && $children(this).length === 0) {
         warn(`Invalid prop: prop "name" is required.`, this)
         return
       }
@@ -183,7 +189,7 @@ export default {
 
       let width = 0
       let height = 0
-      this.$children.forEach(child => {
+      $children(this).forEach((child) => {
         child.outerScale = this.normalizedScale
 
         width = Math.max(width, child.width)
@@ -191,15 +197,15 @@ export default {
       })
       this.childrenWidth = width
       this.childrenHeight = height
-      this.$children.forEach(child => {
+      $children(this).forEach((child) => {
         child.x = (width - child.width) / 2
         child.y = (height - child.height) / 2
       })
-    }
+    },
   },
-  render (h) {
+  render() {
     if (this.name === null) {
-      return h()
+      return Vue.h()
     }
 
     let options = {
@@ -215,9 +221,9 @@ export default {
         width: this.width,
         height: this.height,
         viewBox: this.box,
-        focusable: this.focusable
+        focusable: this.focusable,
       },
-      on: this.$listeners
+      on: this.$listeners,
     }
 
     if (this.raw) {
@@ -230,38 +236,38 @@ export default {
       options.domProps = { innerHTML: html }
     }
 
-    let content = this.title ? [h('title', this.title)] : []
+    let content = this.title ? [Vue.h('title', this.title)] : []
 
-    return h(
+    return Vue.h(
       'svg',
       options,
       this.raw
         ? null
         : content.concat([
-          h(
-            'g',
-            this.$slots.default ||
+            Vue.h(
+              'g',
+              (this.$slots.default && this.$slots.default()) ||
                 (this.icon
                   ? [
-                    ...this.icon.paths.map((path, i) =>
-                      h('path', {
-                        attrs: path,
-                        key: `path-${i}`
-                      })
-                    ),
-                    ...this.icon.polygons.map((polygon, i) =>
-                      h('polygon', {
-                        attrs: polygon,
-                        key: `polygon-${i}`
-                      })
-                    )
-                  ]
+                      ...this.icon.paths.map((path, i) =>
+                        Vue.h('path', {
+                          attrs: path,
+                          key: `path-${i}`,
+                        })
+                      ),
+                      ...this.icon.polygons.map((polygon, i) =>
+                        Vue.h('polygon', {
+                          attrs: polygon,
+                          key: `polygon-${i}`,
+                        })
+                      ),
+                    ]
                   : [])
-          )
-        ])
+            ),
+          ])
     )
   },
-  register (data) {
+  register(data) {
     for (let name in data) {
       let icon = data[name]
       let { paths = [], d, polygons = [], points } = icon
@@ -276,19 +282,19 @@ export default {
 
       icons[name] = assign({}, icon, {
         paths,
-        polygons
+        polygons,
       })
     }
   },
-  icons
+  icons,
 }
 
-function hasOwn (obj, key) {
+function hasOwn(obj, key) {
   return Object.prototype.hasOwnProperty.call(obj, key)
 }
 
-function assign (obj, ...sources) {
-  sources.forEach(source => {
+function assign(obj, ...sources) {
+  sources.forEach((source) => {
     for (let key in source) {
       if (hasOwn(source, key)) {
         obj[key] = source[key]
@@ -300,7 +306,7 @@ function assign (obj, ...sources) {
 }
 
 let count = 0
-function getId (prefix = '') {
+function getId(prefix = '') {
   return prefix + count++
 }
 
@@ -308,11 +314,11 @@ const ESCAPE_MAP = {
   '<': '&lt;',
   '>': '&gt;',
   '"': '&quot;',
-  '&': '&amp;'
+  '&': '&amp;',
 }
 
-function escapeHTML (html) {
-  return html.replace(/[<>"&]/g, c => ESCAPE_MAP[c] || c)
+function escapeHTML(html) {
+  return html.replace(/[<>"&]/g, (c) => ESCAPE_MAP[c] || c)
 }
 </script>
 
