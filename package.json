@@ -51,7 +51,7 @@
     "vue": "^3.3.4"
   },
   "peerDependencies": {
-    "vue": "^3.3.4"
+    "vue": "^2.6.9"
   },
   "browserslist": [
     "> 1%",
