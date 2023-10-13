@@ -1,8 +1,9 @@
 import vue from 'rollup-plugin-vue'
 import buble from '@rollup/plugin-buble'
-import { terser } from 'rollup-plugin-terser'
+import terser from '@rollup/plugin-terser'
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
+import css from "rollup-plugin-import-css";
 
 export default [
   {
@@ -22,7 +23,7 @@ export default [
         compileTemplate: true,
         css: true
       }),
-      buble(),
+      css(),
       terser()
     ]
   },
@@ -39,12 +40,11 @@ export default [
     external: ['vue'],
     plugins: [
       resolve(),
-      commonjs(),
       vue({
         compileTemplate: true,
         css: true
       }),
-      buble(),
+      css(),
       terser()
     ]
   }

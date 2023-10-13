@@ -1,31 +1,31 @@
-# Vue-Awesome
+# vue3-awesome
 
 > 基于 Vue.js 的强大 SVG 图标组件。已内置 Font Awesome 图标。
 
-Vue-Awesome 是基于 [Vue.js](https://vuejs.org/) 的 SVG 图标组件，内置图标来自 [Font Awesome](https://fontawesome.com/)。
+vue3-awesome 是基于 [Vue.js](https://vuejs.org/) 的 SVG 图标组件，内置图标来自 [Font Awesome](https://fontawesome.com/)。
 
-查看[此处](https://justineo.github.io/vue-awesome/demo/)的 demo 一睹为快。
+查看[此处](https://justineo.github.io/vue3-awesome/demo/)的 demo 一睹为快。
 
 ## 安装
 
 ### npm（推荐方式）
 
 ```bash
-$ npm install vue-awesome
+$ npm install vue3-awesome
 ```
 
 ### bower
 
 ```bash
-$ bower install vue-awesome
+$ bower install vue3-awesome
 ```
 
 ### 手动安装
 
-直接下载 `dist/vue-awesome.js` 并在 HTML 文件中引入：
+直接下载 `dist/vue3-awesome.js` 并在 HTML 文件中引入：
 
 ```html
-<script src="path/to/vue-awesome/dist/vue-awesome.js"></script>
+<script src="path/to/vue3-awesome/dist/vue3-awesome.js"></script>
 ```
 
 ## 使用方法
@@ -46,11 +46,11 @@ $ bower install vue-awesome
 </v-icon>
 ```
 
-Font Awesome 5 开始把所有图标分成了多个包。Vue-Awesome 的图标都来自其中的免费图标，而免费图标分别来自 3 个不同的图标包：`regular`、`solid` 和 `brands`。因为 `solid` 下的免费图标数量最多，所以我们选择按如下方式来组织图标：
+Font Awesome 5 开始把所有图标分成了多个包。vue3-awesome 的图标都来自其中的免费图标，而免费图标分别来自 3 个不同的图标包：`regular`、`solid` 和 `brands`。因为 `solid` 下的免费图标数量最多，所以我们选择按如下方式来组织图标：
 
-* 所有来自 `solid` 包的图标位于 `vue-awesome/icons` 目录下，且 `name` prop 的值不带前缀。
+* 所有来自 `solid` 包的图标位于 `vue3-awesome/icons` 目录下，且 `name` prop 的值不带前缀。
 
-* 来自 `regular` 和 `brands` 的图标位于 `vue-awesome/icons/regular` 和 `vue-awesome/icons/brands` 目录下，且 `name` prop 的值需要添加前缀，例如 `regular/flag` 或者 `brands/reddit`。
+* 来自 `regular` 和 `brands` 的图标位于 `vue3-awesome/icons/regular` 和 `vue3-awesome/icons/brands` 目录下，且 `name` prop 的值需要添加前缀，例如 `regular/flag` 或者 `brands/reddit`。
 
 请访问 [Font Awesome 官网](https://fontawesome.com/)以查询可以使用的 `name` 值，如 `beer`、`file`、`camera` 等。
 
@@ -62,14 +62,14 @@ import Vue from 'vue'
 /* 在下面两种方式中任选一种 */
 
 // 仅引入用到的图标以减小打包体积
-import 'vue-awesome/icons/flag'
+import 'vue3-awesome/icons/flag'
 
 // 或者在不关心打包体积时一次引入全部图标
-import 'vue-awesome/icons'
+import 'vue3-awesome/icons'
 
 /* 任选一种注册组件的方式 */
 
-import Icon from 'vue-awesome/components/Icon'
+import Icon from 'vue3-awesome/components/Icon'
 
 // 全局注册（在 `main .js` 文件中）
 Vue.component('v-icon', Icon)
@@ -86,15 +86,15 @@ export default {
 
 ##### 引入源码版本
 
-如果你正在使用官方的 Vue CLI 来创建项目并且希望使用未经转译的组件（引入 `vue-awesome/components/Icon` 而非直接引入 `vue-awesome`）来减小打包尺寸（是推荐用法），会遇到默认配置把 `node_modules` 中的文件排除在 Babel 转译范围以外的问题。
+如果你正在使用官方的 Vue CLI 来创建项目并且希望使用未经转译的组件（引入 `vue3-awesome/components/Icon` 而非直接引入 `vue3-awesome`）来减小打包尺寸（是推荐用法），会遇到默认配置把 `node_modules` 中的文件排除在 Babel 转译范围以外的问题。
 
-当使用 **Vue CLI 3+** 时，需要在 `vue.config.js` 中的 `transpileDependencies` 增加 `vue-awesome`，如下：
+当使用 **Vue CLI 3+** 时，需要在 `vue.config.js` 中的 `transpileDependencies` 增加 `vue3-awesome`，如下：
 
 ```js
 // vue.config.js
 module.exports = {
   transpileDependencies: [
-    /\bvue-awesome\b/
+    /\bvue3-awesome\b/
   ]
 }
 ```
@@ -109,7 +109,7 @@ module.exports = {
 +       include: [
 +         resolve('src'),
 +         resolve('test'),
-+         resolve('node_modules/vue-awesome')
++         resolve('node_modules/vue3-awesome')
 +       ]
       }
 ```
@@ -118,7 +118,7 @@ module.exports = {
 
 #### 在 Nuxt.js 中使用
 
-在 Nuxt.js 的服务端中使用 Vue-Awesome 时，可能会报 `Unexpected token import` 的错误。这是因为 Nuxt.js 默认配置了 `externals` 选项，会使得 `node_modules` 目录下的绝大多数文件被排除在服务端打包代码以外。需要按如下方式将 `vue-awesome` 在 `nuxt.config.js` 中加入白名单：
+在 Nuxt.js 的服务端中使用 vue3-awesome 时，可能会报 `Unexpected token import` 的错误。这是因为 Nuxt.js 默认配置了 `externals` 选项，会使得 `node_modules` 目录下的绝大多数文件被排除在服务端打包代码以外。需要按如下方式将 `vue3-awesome` 在 `nuxt.config.js` 中加入白名单：
 
 对于 **Nuxt.js 2** 项目:
 
@@ -127,7 +127,7 @@ module.exports = {
 module.exports = {
   // ...
   build: {
-    transpile: [/^vue-awesome/]
+    transpile: [/^vue3-awesome/]
   }
 }
 ```
@@ -149,7 +149,7 @@ module.exports = {
           nodeExternals({
             // `whitelist` 选项的默认值是
             // [/es6-promise|\.(?!(?:js|json)$).{1,5}$/i]
-            whitelist: [/es6-promise|\.(?!(?:js|json)$).{1,5}$/i, /^vue-awesome/]
+            whitelist: [/es6-promise|\.(?!(?:js|json)$).{1,5}$/i, /^vue3-awesome/]
           })
         ]
       }
@@ -160,11 +160,11 @@ module.exports = {
 
 ##### 使用 Jest 进行单元测试
 
-请确保已将 `vue-awesome` 从 `transformIgnorePattern` 中排除。在 `test/unit/jest.conf.js` 中加入如下配置：
+请确保已将 `vue3-awesome` 从 `transformIgnorePattern` 中排除。在 `test/unit/jest.conf.js` 中加入如下配置：
 
 ```diff
 + transformIgnorePatterns: [
-+   '/node_modules(?![\\\\/]vue-awesome[\\\\/])/'
++   '/node_modules(?![\\\\/]vue3-awesome[\\\\/])/'
 + ],
 ```
 
@@ -176,10 +176,10 @@ module.exports = {
 var Vue = require('vue')
 
 // 引入 UMD 模块
-var Icon = require('vue-awesome')
+var Icon = require('vue3-awesome')
 
 // 或者在使用 vue-loader 时可以直接引入源码版本
-var Icon = require('vue-awesome/components/Icon')
+var Icon = require('vue3-awesome/components/Icon')
 
 // 注册组件后即可使用
 Vue.component('icon', Icon)
@@ -190,11 +190,11 @@ Vue.component('icon', Icon)
 ```js
 require.config({
   paths: {
-    'vue-awesome': 'path/to/vue-awesome'
+    'vue3-awesome': 'path/to/vue3-awesome'
   }
 })
 
-require(['vue-awesome'], function (Icon) {
+require(['vue3-awesome'], function (Icon) {
   // 注册组件后即可使用
   Vue.component('v-icon', Icon)
 })
@@ -251,9 +251,9 @@ Vue.component('v-icon', VueAwesome)
 
 ### 其它
 
-如果你正在使用 `vue-awesome/components/Icon`（而非整体打包的版本），Vue-Awesome 默认是不会引入任何图标的。别忘了自行引入你想使用的图标。
+如果你正在使用 `vue3-awesome/components/Icon`（而非整体打包的版本），vue3-awesome 默认是不会引入任何图标的。别忘了自行引入你想使用的图标。
 
-如果这些信息仍然无法帮助你解决问题，且[之前的 issue](https://github.com/Justineo/vue-awesome/issues?utf8=%E2%9C%93&q=is%3Aissue) 中也没有合适的解决方案，请尽管[创建新 issue](https://github.com/Justineo/vue-awesome/issues/new)。
+如果这些信息仍然无法帮助你解决问题，且[之前的 issue](https://github.com/Justineo/vue3-awesome/issues?utf8=%E2%9C%93&q=is%3Aissue) 中也没有合适的解决方案，请尽管[创建新 issue](https://github.com/Justineo/vue3-awesome/issues/new)。
 
 ## 设定样式
 
@@ -296,7 +296,7 @@ $ npm run dev
 可以用如下方式注册自定义图标：
 
 ```js
-import Icon from 'vue-awesome/components/Icon'
+import Icon from 'vue3-awesome/components/Icon'
 
 Icon.register({
   baidu: {
@@ -314,7 +314,7 @@ Icon.register({
 #### 路径
 
 ```js
-import Icon from 'vue-awesome/components/Icon'
+import Icon from 'vue3-awesome/components/Icon'
 
 Icon.register({
   webpack: {
@@ -337,7 +337,7 @@ Icon.register({
 #### 多边形
 
 ```js
-import Icon from 'vue-awesome/components/Icon'
+import Icon from 'vue3-awesome/components/Icon'
 
 Icon.register({
   vue: {
@@ -362,7 +362,7 @@ Icon.register({
 **当你使用的 Vue.js 版本低于 `2.6.0` 时，在使用此功能前，需要引入 [innersvg-polyfill](https://www.npmjs.com/package/svg-innerhtml)。**
 
 ```js
-import Icon from 'vue-awesome/components/Icon'
+import Icon from 'vue3-awesome/components/Icon'
 
 Icon.register({
   'html5-c': {

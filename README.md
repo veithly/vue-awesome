@@ -1,10 +1,10 @@
-# Vue-Awesome
+# vue3-awesome
 
 > Awesome SVG icon component for Vue.js, with built-in Font Awesome icons.
 
 > [🇨🇳 中文版](./README.zh_CN.md)
 
-Vue-Awesome an SVG icon component for [Vue.js](https://vuejs.org/), with built-in icons courtesy of [Font Awesome](https://fontawesome.com/).
+vue3-awesome an SVG icon component for [Vue.js](https://vuejs.org/), with built-in icons courtesy of [Font Awesome](https://fontawesome.com/).
 
 Check out the demo [here](https://justineo.github.io/vue-awesome/demo/).
 
@@ -13,21 +13,21 @@ Check out the demo [here](https://justineo.github.io/vue-awesome/demo/).
 ### npm (Recommended)
 
 ```bash
-$ npm install vue-awesome
+$ npm install vue3-awesome
 ```
 
 ### bower
 
 ```bash
-$ bower install vue-awesome
+$ bower install vue3-awesome
 ```
 
 ### Manual
 
-Just download `dist/vue-awesome.js` and include it in your HTML file:
+Just download `dist/vue3-awesome.js` and include it in your HTML file:
 
 ```html
-<script src="path/to/vue-awesome/dist/vue-awesome.js"></script>
+<script src="path/to/vue3-awesome/dist/vue3-awesome.js"></script>
 ```
 
 ## Usage
@@ -48,11 +48,11 @@ Just download `dist/vue-awesome.js` and include it in your HTML file:
 </v-icon>
 ```
 
-Font Awesome 5 has separated all icons into several packs. Vue-Awesome is built upon its all free icons, which includes all free icons from 3 icon packs: `regular`, `solid` and `brands`. Since the `solid` pack has the most number of icons, we organize all Vue-Awesome icons as follows:
+Font Awesome 5 has separated all icons into several packs. vue3-awesome is built upon its all free icons, which includes all free icons from 3 icon packs: `regular`, `solid` and `brands`. Since the `solid` pack has the most number of icons, we organize all vue3-awesome icons as follows:
 
-* All icons from `solid` pack are located in `vue-awesome/icons` directory and have unprefixed `name` prop values.
+* All icons from `solid` pack are located in `vue3-awesome/icons` directory and have unprefixed `name` prop values.
 
-* Icons from `regular` and `brands` are located in `vue-awesome/icons/regular` and `vue-awesome/icons/brands`, which have prefixed `name` prop values like `regular/flag` or `brands/reddit`.
+* Icons from `regular` and `brands` are located in `vue3-awesome/icons/regular` and `vue3-awesome/icons/brands`, which have prefixed `name` prop values like `regular/flag` or `brands/reddit`.
 
 You can find all available `name` values from [Font Awesome's website](https://fontawesome.com/icons) like `beer`, `file` and `camera`.
 
@@ -64,14 +64,14 @@ import Vue from 'vue'
 /* Pick one way between the 2 following ways */
 
 // only import the icons you use to reduce bundle size
-import 'vue-awesome/icons/flag'
+import 'vue3-awesome/icons/flag'
 
 // or import all icons if you don't care about bundle size
-import 'vue-awesome/icons'
+import 'vue3-awesome/icons'
 
 /* Register component with one of 2 methods */
 
-import Icon from 'vue-awesome/components/Icon'
+import Icon from 'vue3-awesome/components/Icon'
 
 // globally (in your main .js file)
 Vue.component('v-icon', Icon)
@@ -88,15 +88,15 @@ export default {
 
 ##### Importing the souce version
 
-If you are using official Vue CLI to create your project and you want to use the untranspiled component (import `vue-awesome/components/Icon` rather than import `vue-awesome` directly, to optimize bundle size, which is recommended), you'll encounter the problem that the default configuration will exclude `node_modules` from files to be transpiled by Babel.
+If you are using official Vue CLI to create your project and you want to use the untranspiled component (import `vue3-awesome/components/Icon` rather than import `vue3-awesome` directly, to optimize bundle size, which is recommended), you'll encounter the problem that the default configuration will exclude `node_modules` from files to be transpiled by Babel.
 
-For **Vue CLI 3+**, add `vue-awesome` into `transpileDependencies` in `vue.config.js` like this:
+For **Vue CLI 3+**, add `vue3-awesome` into `transpileDependencies` in `vue.config.js` like this:
 
 ```js
 // vue.config.js
 module.exports = {
   transpileDependencies: [
-    /\bvue-awesome\b/
+    /\bvue3-awesome\b/
   ]
 }
 ```
@@ -111,7 +111,7 @@ For **Vue CLI 2** with the `webpack` template, modify `build/webpack.base.conf.j
 +       include: [
 +         resolve('src'),
 +         resolve('test'),
-+         resolve('node_modules/vue-awesome')
++         resolve('node_modules/vue3-awesome')
 +       ]
       }
 ```
@@ -120,7 +120,7 @@ If you are using bare webpack config, just do similar modifications make it work
 
 #### Using with Nuxt.js
 
-When using Vue-Awesome on the server side with Nuxt.js, it may prompt `Unexpected token import` because Nuxt.js has configured an `external` option by default, which prevent files under `node_modules` from being bundled into the server bundle with only a few exceptions. We need to whitelist `vue-awesome` in `nuxt.config.js` as follows:
+When using vue3-awesome on the server side with Nuxt.js, it may prompt `Unexpected token import` because Nuxt.js has configured an `external` option by default, which prevent files under `node_modules` from being bundled into the server bundle with only a few exceptions. We need to whitelist `vue3-awesome` in `nuxt.config.js` as follows:
 
 For **Nuxt.js 2**:
 
@@ -129,7 +129,7 @@ For **Nuxt.js 2**:
 module.exports = {
   // ...
   build: {
-    transpile: [/^vue-awesome/]
+    transpile: [/^vue3-awesome/]
   }
 }
 ```
@@ -151,7 +151,7 @@ module.exports = {
           nodeExternals({
             // default value for `whitelist` is
             // [/es6-promise|\.(?!(?:js|json)$).{1,5}$/i]
-            whitelist: [/es6-promise|\.(?!(?:js|json)$).{1,5}$/i, /^vue-awesome/]
+            whitelist: [/es6-promise|\.(?!(?:js|json)$).{1,5}$/i, /^vue3-awesome/]
           })
         ]
       }
@@ -162,11 +162,11 @@ module.exports = {
 
 ##### Unit Testing with Jest
 
-Make sure to whitelist `vue-awesome` from the `transformIgnorePattern`. Add following configuation in `test/unit/jest.conf.js`:
+Make sure to whitelist `vue3-awesome` from the `transformIgnorePattern`. Add following configuation in `test/unit/jest.conf.js`:
 
 ```diff
 + transformIgnorePatterns: [
-+   '/node_modules(?![\\\\/]vue-awesome[\\\\/])/'
++   '/node_modules(?![\\\\/]vue3-awesome[\\\\/])/'
 + ],
 ```
 
@@ -178,10 +178,10 @@ Make sure to whitelist `vue-awesome` from the `transformIgnorePattern`. Add foll
 var Vue = require('vue')
 
 // requiring the UMD module
-var Icon = require('vue-awesome')
+var Icon = require('vue3-awesome')
 
 // or with vue-loader you can require the src directly
-var Icon = require('vue-awesome/components/Icon')
+var Icon = require('vue3-awesome/components/Icon')
 
 // register component to use
 ```
@@ -191,11 +191,11 @@ var Icon = require('vue-awesome/components/Icon')
 ```js
 require.config({
   paths: {
-    'vue-awesome': 'path/to/vue-awesome'
+    'vue3-awesome': 'path/to/vue3-awesome'
   }
 })
 
-require(['vue-awesome'], function (Icon) {
+require(['vue3-awesome'], function (Icon) {
   // register component to use
   Vue.component('v-icon', Icon)
 })
@@ -252,9 +252,9 @@ Vue.component('v-icon', VueAwesome)
 
 ### Misc
 
-If you are using `vue-awesome/components/Icon` (instead of the whole bundled version), Vue-Awesome won't import a single icon by default. Do not forget to import icons you want to use.
+If you are using `vue3-awesome/components/Icon` (instead of the whole bundled version), vue3-awesome won't import a single icon by default. Do not forget to import icons you want to use.
 
-If these caveats don't help and there are no proper workarounds in [earlier issues](https://github.com/Justineo/vue-awesome/issues?utf8=%E2%9C%93&q=is%3Aissue), please feel free to [file a new one](https://github.com/Justineo/vue-awesome/issues/new).
+If these caveats don't help and there are no proper workarounds in [earlier issues](https://github.com/Justineo/vue3-awesome/issues?utf8=%E2%9C%93&q=is%3Aissue), please feel free to [file a new one](https://github.com/Justineo/vue3-awesome/issues/new).
 
 ## Styling
 
@@ -297,7 +297,7 @@ Don't touch files in `src/icons` but update `assets/svg/*` instead and run `npm 
 You can register custom icons like this:
 
 ```js
-import Icon from 'vue-awesome/components/Icon'
+import Icon from 'vue3-awesome/components/Icon'
 
 Icon.register({
   baidu: {
@@ -315,7 +315,7 @@ If your SVG file has more than one path or polygon, and/or you want to have a pr
 #### Paths
 
 ```js
-import Icon from 'vue-awesome/components/Icon'
+import Icon from 'vue3-awesome/components/Icon'
 
 Icon.register({
   webpack: {
@@ -338,7 +338,7 @@ Icon.register({
 #### Polygons
 
 ```js
-import Icon from 'vue-awesome/components/Icon'
+import Icon from 'vue3-awesome/components/Icon'
 
 Icon.register({
   vue: {
@@ -363,7 +363,7 @@ Icon.register({
 **If you are using Vue.js version prior to `2.6.0`, you need to include [innersvg-polyfill](https://www.npmjs.com/package/svg-innerhtml) before you use this feature.**
 
 ```js
-import Icon from 'vue-awesome/components/Icon'
+import Icon from 'vue3-awesome/components/Icon'
 
 Icon.register({
   'html5-c': {
