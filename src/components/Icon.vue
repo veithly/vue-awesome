@@ -1,6 +1,5 @@
 <script lang="jsx">
 import * as Vue from 'vue'
-import { $children } from '../utils/gogocodeTransfer'
 let icons = {}
 
 function warn(msg, vm) {
@@ -11,6 +10,25 @@ function warn(msg, vm) {
     return
   }
   vm.constructor.super.util.warn(msg, vm)
+}
+
+function $children(instance) {
+  function $walk(vnode, children) {
+    if (vnode.component && vnode.component.proxy) {
+      children.push(vnode.component.proxy)
+    } else if (vnode.shapeFlag & (1 << 4)) {
+      const vnodes = vnode.children
+      for (let i = 0; i < vnodes.length; i++) {
+        $walk(vnodes[i], children)
+      }
+    }
+  }
+  const root = instance.$.subTree
+  const children = []
+  if (root) {
+    $walk(root, children)
+  }
+  return children
 }
 
 export default {
@@ -76,7 +94,7 @@ export default {
         'fa-inverse': this.inverse,
         'fa-pulse': this.pulse,
       }
-
+      let classList = ""
       if (this.classes) {
         Object.keys(this.classes).forEach((c) => {
           if (this.classes[c]) {
@@ -84,8 +102,13 @@ export default {
           }
         })
       }
-
-      return classes
+      Object.keys(classes).forEach((c) => {
+        if (classes[c]) {
+          classList += c + " "
+        }
+      })
+      console.log("classList=====", classList);
+      return classList
     },
     icon() {
       if (this.name) {
@@ -211,19 +234,22 @@ export default {
     let options = {
       class: this.klass,
       style: this.style,
-      attrs: {
-        role: this.$attrs.role || (this.label || this.title ? 'img' : null),
-        'aria-label': this.label || null,
-        'aria-hidden': !(this.label || this.title),
-        tabindex: this.tabindex,
-        x: this.x,
-        y: this.y,
-        width: this.width,
-        height: this.height,
-        viewBox: this.box,
-        focusable: this.focusable,
-      },
-      on: this.$listeners,
+      role: this.$attrs.role || (this.label || this.title ? 'img' : null),
+      'aria-label': this.label || null,
+      'aria-hidden': !(this.label || this.title),
+      tabindex: this.tabindex,
+      x: this.x,
+      y: this.y,
+      width: this.width,
+      height: this.height,
+      viewBox: this.box,
+      focusable: this.focusable,
+    }
+
+    options.class = options.class + " " + this.$listeners['class']
+
+    if (this.$listeners['style']) {
+      options.style = Object.assign({}, options.style, this.$listeners['style'])
     }
 
     if (this.raw) {

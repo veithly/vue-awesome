@@ -1,6 +1,6 @@
 {
   "name": "vue3-awesome",
-  "version": "1.0.0",
+  "version": "0.0.1-b",
   "description": "Font Awesome component for Vue3.x, using inline SVG.",
   "author": "Ricky (veithly@live.com)",
   "scripts": {
