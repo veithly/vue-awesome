@@ -107,7 +107,6 @@ export default {
           classList += c + " "
         }
       })
-      console.log("classList=====", classList);
       return classList
     },
     icon() {
@@ -246,7 +245,9 @@ export default {
       focusable: this.focusable,
     }
 
-    options.class = options.class + " " + this.$listeners['class']
+    if (this.$listeners['class']) {
+      options.class = options.class + " " + this.$listeners['class']
+    }
 
     if (this.$listeners['style']) {
       options.style = Object.assign({}, options.style, this.$listeners['style'])
