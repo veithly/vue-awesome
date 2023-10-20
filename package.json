@@ -1,6 +1,6 @@
 {
   "name": "vue3-awesome",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Font Awesome component for Vue3.x, using inline SVG.",
   "author": "Ricky (veithly@live.com)",
   "scripts": {
@@ -23,7 +23,7 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@vue/cli-plugin-babel": "^5.0.8",
     "@vue/cli-plugin-eslint": "^5.0.8",
-    "@vue/cli-service": "^3.3.1",
+    "@vue/cli-service": "^5.0.8",
     "@vue/eslint-config-prettier": "^8.0.0",
     "babel-eslint": "^10.1.0",
     "cross-env": "^7.0.3",
@@ -48,9 +48,6 @@
     "stringify-object": "^3.3.0",
     "svgfont2glyphs": "^0.1.4",
     "vue": "^3.3.4"
-  },
-  "peerDependencies": {
-    "vue": "^2.6.9"
   },
   "browserslist": [
     "> 1%",
