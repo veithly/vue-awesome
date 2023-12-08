@@ -63,8 +63,8 @@ export default {
   },
   data() {
     return {
-      x: false,
-      y: false,
+      x: 0,
+      y: 0,
       childrenWidth: 0,
       childrenHeight: 0,
       outerScale: 1,
